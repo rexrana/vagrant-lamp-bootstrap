@@ -3,6 +3,20 @@
 # Use single quotes instead of double quotes to make it work with special-character passwords
 MYSQL_ROOT_PWD='12345678'
 
+##### PROVISION CHECK ######
+
+# The provision check is intented to not run the full provision script when a box has already been provisioned.
+# At the end of this script, a file is created on the vagrant box, we'll check if it exists now.
+echo "Checking if the box was already provisioned..."
+
+if [ -e "/home/vagrant/.provisioned" ]
+then
+    echo "Provisioning already completed. Skipping..."
+    exit 0
+else
+    echo "Provisioning web server..."
+fi
+
 # update / upgrade
 sudo apt-get update
 sudo apt-get -y upgrade
@@ -16,16 +30,6 @@ sudo debconf-set-selections <<< "mysql-server mysql-server/root_password passwor
 sudo debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $MYSQL_ROOT_PWD"
 sudo apt-get -y install mysql-server
 sudo apt-get install php5-mysql
-
-# install phpmyadmin and give password(s) to installer
-# for simplicity I'm using the same password for mysql and phpmyadmin
-sudo debconf-set-selections <<< "phpmyadmin phpmyadmin/dbconfig-install boolean true"
-sudo debconf-set-selections <<< "phpmyadmin phpmyadmin/app-password-confirm password $MYSQL_ROOT_PWD"
-sudo debconf-set-selections <<< "phpmyadmin phpmyadmin/mysql/admin-pass password $MYSQL_ROOT_PWD"
-sudo debconf-set-selections <<< "phpmyadmin phpmyadmin/mysql/app-pass password $MYSQL_ROOT_PWD"
-sudo debconf-set-selections <<< "phpmyadmin phpmyadmin/reconfigure-webserver multiselect apache2"
-sudo apt-get -y install phpmyadmin
-
 
 # enable mod_rewrite
 sudo a2enmod rewrite
@@ -71,3 +75,8 @@ find /home/vagrant -name "*.sh" -exec chmod +x {} \;
 # virtual hosts
 #/home/vagrant/vhost-drupal.sh
 #/home/vagrant/vhost-wordpress.sh
+
+# Create .provisioned for the script to check on during a next vargant up.
+cd /home/vagrant
+touch .provisioned
+echo "Provisioning completed..."
