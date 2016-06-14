@@ -1,39 +1,24 @@
 # vagrant-lamp-bootstrap
 
-A super-simple Vagrantfile / bootstrap.sh to setup a LAMP stack inside Vagrant 100% automatically.
+A development environment setup for a LAMP stack inside Vagrant.
 
-### Whaaaaat ?
+### What this does
 
-This is a reduced-to-the-max Vagrant setup file for a quick development stack. It will:
+This is a basic Vagrant setup which provides all the basic tools for PHP, Drupal and WordPress web development. It will:
 
-* setup a Ubuntu 14.04 LTS "Trustry Thar" 64bit box
-
+* setup a Ubuntu 14.04 LTS "Trusty Tahr" 64bit box
 * make the box accessable by the host at IP `192.168.33.22`
-
-* sync the current folder with `/var/www/html` inside the box
-
-* automatically perform all the commands in bootstrap.sh directly after setting up the box for the first time
+* sync 'home' folder to `/home/vagrant`
+* sync 'www' folder to `/var/www`
+* Provision server with bootstrap.sh
 
 The bootstrap.sh will:
 
-* update, upgrade
+* update, upgrade Ubuntu base packages
+* Install LAMP server
+* Install development tools: git, Composer, Ruby, LESS, SASS, node.js, Grunt, Gulp, Bower, Drupal Console, Drush, WP-CLI
 
-* create a folder inside /var/www/html
+### How to use
 
-* install apache 2.4, php 5.5, MySQL, PHPMyAdmin, git and Composer
-
-* also setting a pre-chosen password for MySQL and PHPMyAdmin
-
-* activate mod_rewrite and add *AllowOverride All* to the vhost settings
-
-You can folder and password inside the bootstrap.sh for sure.
-
-### How to use ?
-
-Put `Vagrantfile` and `bootstrap.sh` inside a folder and do a `vagrant up` on the command line.
-This box uses Ubuntu 14.04 LTS "Trustry Thar" 64bit, so if you don't have the basic box already, do a 
-`vagrant box add ubuntu/trusty64` before.
-
-### Why ?
-
-This is just my personal time-saving bootstrap for Vagrant, it might be useful for you too.
+Before using this script, you will need to install [VirtualBox](https://www.virtualbox.org/) and [Vagrant](https://www.vagrantup.com/) on your host OS.
+Clone or download this repository. Run a `vagrant up` on the command line, within the root folder.
