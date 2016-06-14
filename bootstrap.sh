@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /bin/bash
 
 # Use single quotes instead of double quotes to make it work with special-character passwords
 MYSQL_ROOT_PWD='12345678'
@@ -38,45 +38,59 @@ sudo a2enmod rewrite
 service apache2 restart
 
 # install git
+echo "Installing git..."
 sudo apt-get -y install git
 
 # install Composer
+echo "Installing Composer..."
 curl -s https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
 
 # Install node.js
+echo "Installing node.js..."
 curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
 # Install Gulp and Grunt task runners (requires node.js)
+echo "Installing Gulp and Grunt task runners..."
 npm install -g grunt-cli
 npm install -g gulp-cli
 
 # Intall Bower (front-end package manager)
+echo "Installing Bower..."
 npm install -g bower
 
 # Install LESS css preprocessor (requires node.js)
+echo "Installing LESS CSS preprocessor..."
 npm install -g less
 
 # Install Ruby
+echo "Installing Ruby..."
 sudo apt-get -y install ruby-full
 
 # Install Sass (requires Ruby)
+echo "Installing SASS CSS preprocessor..."
 sudo su -c "gem install sass"
 
-find /home/vagrant -name "*.sh" -exec chmod +x {} \;
-
 # Install Drupal Console and Drush (used for Drupal development)
-/home/vagrant/drupal.sh
+echo "Installing Drupal development tools..."
+# get the latest Drupal Console and Drush:
+curl https://drupalconsole.com/installer -L -o drupal.phar
+php -r "readfile('http://files.drush.org/drush.phar');" > drush
+# Apply executable permissions on the downloaded files:
+chmod +x drupal.phar
+chmod +x drush
+# Accessing from anywhere on your system:
+sudo mv drupal.phar /usr/local/bin/drupal
+sudo mv drush /usr/local/bin
+# Optional. Enrich the bash startup file with completion and aliases.
+drush init
 
 # Install WP-CLI (used for WordPress development)
-/home/vagrant/wordpress.sh
-
-# virtual hosts
-# echo "setting up Drupal..."
-# /home/vagrant/vhost-drupal.sh
-# echo "setting up WordPress..."
-# /home/vagrant/vhost-wordpress.sh
+echo "Installing WordPress development tools..."
+curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+chmod +x wp-cli.phar
+sudo mv wp-cli.phar /usr/local/bin/wp
 
 # Create .provisioned for the script to check on during a next vargant up.
 cd /home/vagrant
