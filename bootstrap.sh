@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # Use single quotes instead of double quotes to make it work with special-character passwords
 MYSQL_ROOT_PWD='12345678'
@@ -73,8 +73,10 @@ find /home/vagrant -name "*.sh" -exec chmod +x {} \;
 /home/vagrant/wordpress.sh
 
 # virtual hosts
-#/home/vagrant/vhost-drupal.sh
-#/home/vagrant/vhost-wordpress.sh
+# echo "setting up Drupal..."
+# /home/vagrant/vhost-drupal.sh
+# echo "setting up WordPress..."
+# /home/vagrant/vhost-wordpress.sh
 
 # Create .provisioned for the script to check on during a next vargant up.
 cd /home/vagrant

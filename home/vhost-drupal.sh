@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 DOMAIN='drupal8.dev'
 MYSQL_DB='drupal8'

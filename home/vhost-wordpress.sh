@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 DOMAIN='wordpress.dev'
 MYSQL_DB='wordpress'

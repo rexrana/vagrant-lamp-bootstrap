@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # get the latest Drupal Console and Drush:
 curl https://drupalconsole.com/installer -L -o drupal.phar
