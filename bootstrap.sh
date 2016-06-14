@@ -59,7 +59,7 @@ npm install -g bower
 npm install -g less
 
 # Install Ruby
-sudo apt-get install ruby-full
+sudo apt-get -y install ruby-full
 
 # Install Sass (requires Ruby)
 sudo su -c "gem install sass"
